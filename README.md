@@ -1,7 +1,7 @@
-# latex-template-report
+# latex-template-large-report
 
 ## Compile
 
 ```
-latexmk -xelatex main.tex
+$ report.sh
 ```
