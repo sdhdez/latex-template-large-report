@@ -1,0 +1,421 @@
+\ProvidesPackage{preamble}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%   LATEX BASICS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages working with XeLatex or LuaTex
+\usepackage{fontspec,xltxtra}
+\defaultfontfeatures{Ligatures=TeX}
+
+% Allow space after newcommand
+\usepackage{xspace}
+
+% The package provides a high-level interface for producing document-level commands. 
+% In that way, it offers a replacement for LaTeX2ε’s 
+% \newcommand macro, with significantly improved functionality. 
+\usepackage{xparse}
+
+% Allow use of more than one optional parameter with newcommandx
+\usepackage{xargs}
+% Used to solve Width problems in longtable and graphics
+\usepackage{calc}
+
+% Language
+% \usepackage{polyglossia}
+% \setdefaultlanguage[variant=usmax]{english} % Default language in polyglossia
+\usepackage[main=english]{babel}
+
+% Custom hypheantions
+% \hyphenation{Key-phrase Key-phrases Wiki-pe-di-a}
+
+% Math symbols
+\usepackage{amsfonts}
+
+% ++++++++++++++++++++++++++++
+% ++   Default Font size    ++
+% ++++++++++++++++++++++++++++
+% Default font size for captions, theads and urls
+\newcommand*{\CustomFontSize}{\footnotesize}
+\newcommand*{\CustomSmallFontSize}{\scriptsize}
+\newcommand*{\CustomLargeFontSize}{\normalsize}
+\newcommand*{\NonContentSize}{\CustomFontSize}
+\newcommand*{\NonContentSmallSize}{\CustomSmallFontSize}
+\newcommand*{\NonContentLargeSize}{\CustomLargeFontSize}
+\newcommand*{\FloatNormalSize}{\NonContentSize}
+\newcommand*{\FloatSmallSize}{\CustomSmallFontSize}
+
+% ++++++++++++++++++++++++++
+% ++   Custom Colors 
+% ++++++++++++++++++++++++++
+\usepackage[dvipsnames]{xcolor}
+% Highlighting
+\usepackage{soul}
+% Underline and emphasis
+\usepackage[normalem]{ulem}
+% New colors
+\colorlet{lightred25}{red!25}
+\colorlet{lightred35}{red!35}
+\colorlet{lightblue25}{blue!25}
+\colorlet{lightblue35}{blue!35}
+\colorlet{lightcyan25}{cyan!25}
+\colorlet{lightcyan35}{cyan!35}
+\colorlet{lightgoldenrod25}{Goldenrod!25}
+\colorlet{lightgoldenrod35}{Goldenrod!35}
+\colorlet{lightgreen25}{green!25}
+\colorlet{lightgreen35}{green!35}
+\colorlet{lightplum25}{Plum!25}
+\colorlet{lightplum35}{Plum!35}
+\colorlet{lightgray10}{Gray!10}
+\colorlet{lightgray15}{Gray!15}
+\colorlet{lightgray20}{Gray!20}
+\colorlet{lightgray50}{Gray!50}
+\colorlet{lightgray90}{Gray!90}
+\colorlet{black75}{black!75}
+\colorlet{black90}{black!90}
+
+% Dummy text
+\usepackage{lipsum}
+
+% Importing 
+\usepackage{import}
+
+% Graphics 
+\usepackage{graphicx}
+%\usepackage{svg} % Problems with latexmk
+
+% Alternative versions of "ragged"-type commands
+\usepackage{ragged2e}
+
+% Modifies the margins and rotates the page contents but not the page number. 
+% Useful, for example, with large multipage tables, as it is compatible with 
+% longtable and supertabular. 
+\usepackage{lscape}
+
+% The package adds PDF support to the landscape environment of package lscape, 
+% by setting the PDF /Rotate page attribute. 
+% Pages with this attribute will be displayed in landscape orientation % by conforming PDF viewers. 
+% \usepackage{pdflscape}  
+
+% expanded version of url - use before hyperref
+\usepackage{xurl} 
+% hyperref is needed by makeidx and for glossaries.
+\usepackage[hidelinks]{hyperref}
+\hypersetup{breaklinks=true} % hyperref
+
+% Table of contents
+\usepackage{makeidx}
+% Print index without numbers
+% \let\Contentsline\contentsline 
+% \renewcommand\contentsline[3]{\Contentsline{#1}{#2}{}}
+% Print index without dots
+%\makeatletter
+%\renewcommand{\@dotsep}{10000} % The @ generates an error.
+%\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%          STYLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Caption
+\usepackage{caption}
+% To use subfigures and subtables.
+\usepackage{subcaption}
+\captionsetup{style=base}
+\captionsetup{font=footnotesize, % \NonContentSize
+                format=hang,
+                labelfont={scriptsize}, % \NonContentSmallSize
+                textfont=it,
+                twoside}
+% Change English figure label for babel
+% \addto\captionsenglish{
+%     \renewcommand{\figurename}{Fig.}
+% }
+% Without babel
+% \renewcommand{\figurename}{Fig.}
+% \addto\captionsenglish{
+%     \renewcommand{\tablename}{Tab.}
+% }
+
+% Declare caption label
+% Continued
+\renewcommand\theContinuedFloat{\alph{ContinuedFloat}}
+\DeclareCaptionLabelFormat{cont}{\noindent\setlength{\fboxsep}{1.5pt}\setlength{\fboxrule}{0pt}\fcolorbox{black}{black}{\color{white}#1~#2}}
+\captionsetup[ContinuedFloat]{labelformat=cont}
+% All labels
+\DeclareCaptionLabelFormat{framelabel}{\noindent\setlength{\fboxsep}{1.5pt}\setlength{\fboxrule}{0pt}\fcolorbox{black}{black}{\color{white}#1~#2}}
+\captionsetup{labelformat=framelabel,labelsep=space}
+
+% Reduce of "under-" and "overfull box". 
+% Works with pdflatex
+% \usepackage[activate={true,nocompatibility},
+%             final,tracking=true,kerning=true,
+%             spacing=true,factor=1100,
+%             stretch=10,shrink=10]{microtype}
+% From http://www.khirevich.com/latex/microtype/
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+
+% Fancy Document Style 
+% http://ctan.mines-albi.fr/macros/latex/contrib/fancyhdr/fancyhdr.pdf
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+% Set header size for fancyhdr
+\setlength\headheight{14.5pt}
+% Header and footer margins
+\renewcommand{\headrulewidth}{\iffloatpage{0pt}{0.8pt}}
+\renewcommand{\footrulewidth}{\iffloatpage{0pt}{0.4pt}}
+% Clean empty pages in openright documents 
+\makeatletter\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+    \hbox{}
+    \vspace*{\fill}
+    \begin{center}
+        % This page intentionally contains only this sentence.
+    \end{center}
+    \vspace{\fill}
+    \thispagestyle{empty}
+    \newpage
+    \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+% Lamport's book style 
+% \addtolength{\headwidth}{\marginparsep} % Margin separation
+% \addtolength{\headwidth}{\marginparwidth} % Margin separation
+\renewcommand{\chaptermark}[1]{\markboth{\CustomFontSize Chapter \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\CustomFontSize \thesection.\ #1}}
+\fancyhf{}
+\fancyhead[LE,RO]{\CustomFontSize\textbf{\thepage}}
+\fancyhead[RE]{\textsc{\leftmark}}
+\fancyhead[LO]{\textsc{\rightmark}}
+\fancypagestyle{plain}{%
+    \fancyhead{} % get rid of headers
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{myplain}{%
+    \fancyhead{} % get rid of headers
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+    \fancyfoot[C]{\CustomFontSize\textbf{\thepage}}
+}
+% Paragraph style
+% \frenchspacing
+
+% Titling defaults
+\usepackage{titling}
+% Definitions
+% Setting titling 
+\newcommand*{\theinstitution}[1]{My Institution}
+\newcommand*{\institution}[1]{\renewcommand{\theinstitution}[1]{#1}}
+\newcommand*{\thelaboratory}[1]{My laboratory}
+\newcommand*{\laboratory}[1]{\renewcommand{\thelaboratory}[1]{#1}}
+
+% Position of tables and figures
+\usepackage{float}
+\newcommand*{\DefaultFloatStyle}{\FloatNormalSize\centering\xspace}
+% Centers all floats by default
+\makeatletter
+\g@addto@macro\@floatboxreset\DefaultFloatStyle
+\makeatother
+
+% Figure boxes
+\newcommand*{\framegraphics}[2][width=\textwidth]{{\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{0.1pt}\
+\noindent\fcolorbox{Gray}{white}{\includegraphics[#1 - {\fboxsep + \fboxrule} * \real{2}]{#2}}\par}}
+
+% https://tex.stackexchange.com/questions/60079/creating-a-new-environment-with-one-optional-argument 
+% need review % \ExplSyntaxOn
+% need review % \NewDocumentEnvironment{subfigurebox}{o m m}
+% need review % {
+% need review %     \par\noindent
+% need review %     \setlength{\fboxsep}{0pt}
+% need review %     \setlength{\fboxrule}{0.2pt}
+% need review %     \fbox{
+% need review %         \begin{subfigure}[#1]{#2}
+% need review %             #3
+% need review %         \end{subfigure}
+% need review %     }
+% need review %     \ignorespaces
+% need review % }
+% need review % {}
+% need review % \ExplSyntaxOff
+
+% Alternative method to frame a figure
+% https://tex.stackexchange.com/a/111043/195980
+% https://tex.stackexchange.com/a/20641/195980
+% \NewDocumentCommand{\framecolorbox}{oommm}
+% { % #1 = width (optional)
+%   % #2 = inner alignment (optional)
+%   % #3 = frame color
+%   % #4 = background color
+%   % #5 = text
+%     \IfValueTF{#1}
+%     {
+%         \IfValueTF{#2}
+%         {
+%             \setlength{\fboxrule}{#1}
+%             \setlength{\fboxsep}{#2}
+%             \fcolorbox{#3}{#4}{#5}
+%         }
+%         {
+%             \setlength{\fboxrule}{#1}
+%             \setlength{\fboxsep}{0mm}
+%             \fcolorbox{#3}{#4}{#5}
+%         }
+%     }
+%     {\fcolorbox{#3}{#4}{#5}}
+% }
+% 
+% \newcommand*{\fcolorboxrule}{black} % border color
+% \newcommand*{\fcolorboxbackground}{lightgray10} % background color
+% \newcommand*{\fboxruleDefault}{0.1pt} % border width
+% \newcommand*{\fboxsepDefault}{1mm} % padding
+% \NewDocumentCommand{\framegraphics}{om}{
+%     % #1 = includegraphics width
+%     % #2 = text
+%     \begin{center}
+%         \IfValueTF{#1}
+%         {
+%             \framecolorbox[\fboxruleDefault][\fboxsepDefault]{\fcolorboxrule}{\fcolorboxbackground}{
+%                 \includegraphics[#1]{#2}}\par
+%         }
+%         {
+%             \framecolorbox[\fboxruleDefault][\fboxsepDefault]{\fcolorboxrule}{\fcolorboxbackground}{
+%                 \includegraphics[width=\textwidth]{#2}}\par
+%         }
+%     \end{center}
+% }
+
+% Footnotes
+
+% 'hang' option flushes the footnote marker to the left
+% 'flushmargin' option flushes the text
+\usepackage[bottom,hang,flushmargin]{footmisc} 
+% Urls in footnotes
+% \newcommand*{\FootUrl}[1]{\RaggedRight\NonContentSmallSize\url{#1}}
+\newcommand*{\FootUrl}[1]{\NonContentSmallSize\url{#1}}
+
+% Table style
+% Column specification using >{\cmd} and <{\cmd}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+% Long tables
+\usepackage{longtable}
+% Set width 100%
+% \setlength\LTleft{0pt}
+% \setlength\LTright{0pt}
+% longtable continue text
+\newcommand*{\LongTableContinuedFrom}{{\em {\FloatNormalSize \tablename\ \thetable{} -- continued from previous page}}}
+\newcommand*{\LongTableContinuedNext}{{\em {\FloatNormalSize -- Continued on next page}}}
+% Solve Underfull problem in longtable, two arguments P{width}{number of columns}
+\newcolumntype{P}[2]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1 - #2\tabcolsep}}
+\newcolumntype{M}[2]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1 - #2\tabcolsep}}
+% Tabulary 
+\usepackage{tabulary}
+\newcolumntype{K}{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}L}
+% Pbox  if the user provided width parameter is larger than 
+% the actual contents of the pbox the pbox shrinks to fit the content
+\usepackage{pbox}
+
+% Table heads
+\newcommand*{\thead}[1]{\NonContentSize\em\hspace*{\fill}{#1}\hspace*{\fill}}
+% \newcommand*{\thead}[1]{\Centering\bfseries #1}
+
+% +++++++++++++++++++++++
+% ++   Listings code
+% +++++++++++++++++++++++
+\usepackage{listings}
+\usepackage[cache=true,outputdir=./]{minted} % Needed before csquotes
+\usemintedstyle{manni}
+% minted language options
+\setminted{
+    framesep=4mm,
+    baselinestretch=1.2,
+    bgcolor=lightgray20,
+    rulecolor=lightgray50,
+    fontsize=\NonContentSize,
+    escapeinside=||
+}
+
+% +++++++++++++++++++++++++++++
+% ++   Bibliography style
+% +++++++++++++++++++++++++++++
+% Recommended for biblatex 
+\usepackage{csquotes} % It must be declared after minted
+\usepackage[
+    backend=biber,
+    style=apa,
+    labeldate=year,
+    citestyle=authoryear,
+    autocite=inline
+]{biblatex}
+% Language
+% \DeclareLanguageMapping{english}{english-apa}
+% Add category to cited references
+\DeclareBibliographyCategory{cited}
+\AtEveryCitekey{\addtocategory{cited}{\thefield{entrykey}}}
+% Set bib file
+\addbibresource{mybib.bib}
+% Fields
+\AtBeginDocument{
+    \AtEveryBibitem{\clearfield{month}}
+    \AtEveryBibitem{\clearfield{day}}
+    \AtEveryBibitem{\clearfield{endmonth}}
+    \AtEveryBibitem{\clearfield{endday}}
+    \AtEveryBibitem{\clearfield{labelmonth}}
+    \AtEveryBibitem{\clearfield{labelday}}
+    \AtEveryBibitem{\clearlist{language}}
+    \AtEveryBibitem{\clearfield{note}}
+    % \DeclareFieldFormat*{issn}{}
+    % \DeclareFieldFormat*{url}{}
+    % \DeclareFieldFormat[online]{url}{\mkbibacro{URL}\addcolon\space\url{#1}}
+    % \DeclareFieldFormat*{urldate}{}
+    % \DeclareFieldFormat[online]{urldate}{\mkbibparens{\bibstring{urlseen}\space#1}}
+    % 
+    % \DeclareFieldFormat*{citetitle}{\emph{#1}}
+    % \DeclareFieldFormat*{citeauthor}{\emph{#1}}
+}
+
+% Bibliography font size for biblatex
+\renewcommand*{\bibfont}{\NonContentSize}
+
+% Break DOI     
+\usepackage{expl3}
+\ExplSyntaxOn
+\newcommand \breakDOI[1]
+ {
+  \tl_map_inline:nn { #1 } { \href{http://dx.doi.org/#1}{##1} \penalty0 \scan_stop: }
+ }
+\ExplSyntaxOff
+
+\DeclareFieldFormat{doi}{%
+  \mkbibacro{DOI}\addcolon\space
+  {\breakDOI{#1}}}
+
+% ++++++++++++++++++++++++++
+% ++   Tables of content 
+% ++++++++++++++++++++++++++
+
+% \usepackage[titletoc]{appendix}
+
+% Table of contents
+\usepackage{tocbibind}
+
+% Draws the layout 
+\usepackage[noframe]{showframe}
+% \usepackage{showframe}
+\renewcommand*\ShowFrameColor{\color{red}}
+\renewcommand*\ShowFrameLinethickness{0.1pt}
+\newcommand*{\drawlayout}{\AddToShipoutPicture*{\ShowFramePicture}}
+
+% ++++++++++++++++++++++++
+% ++   ToDo notes
+% ++++++++++++++++++++++++
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage[enable]{easy-todo}
+\usepackage[disable]{easy-todo}
+
+% temporal colored comments
+\input{./document/comments.tex}

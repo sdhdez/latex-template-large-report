@@ -1,0 +1,17 @@
+% !TEX spellcheck = en-US
+\documentclass[a4paper,12pt,twoside,openright]{book}
+\usepackage{preamble} % Packages 
+\subimport{document/}{default-info.tex} % Title, author, date, etc.
+% \makeindex
+\begin{document}
+    \frontmatter{}
+    \subimport{document/frontmatter/}{frontmatter}
+    \mainmatter{}
+    \pagenumbering{arabic} % Page numbering with Arabic numbers
+    \subimport{document/chapter-01/}{chapter-01} % Chapter I Introduction
+    \subimport{document/appendix/}{appendix} % Appendices
+    \backmatter{}
+    \subimport{document/references/}{references} % References
+    \subimport{document/frontmatter/}{notes-list} % Notes
+\end{document}
+ 
